@@ -16,7 +16,8 @@ public class RecruiterProfile {
     private String lastName;
     private String city;
     private String state;
-    private String Country;
+    private String country;
+    private String company;
 
     @Column(nullable = true, length = 64)
     private String profilePhoto;
@@ -27,14 +28,15 @@ public class RecruiterProfile {
         this.users = users;
     }
     public RecruiterProfile(int userAccountId, Users users, String firstName, String lastName,
-                            String city, String state, String country, String profilePhoto) {
+                            String city, String state, String country, String company, String profilePhoto) {
         this.userAccountId = userAccountId;
         this.users = users;
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
         this.state = state;
-        Country = country;
+        this.country = country;
+        this.company = company;
         this.profilePhoto = profilePhoto;
     }
 
@@ -87,11 +89,19 @@ public class RecruiterProfile {
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        this.country = country;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getProfilePhoto() {
@@ -100,6 +110,12 @@ public class RecruiterProfile {
 
     public void setProfilePhoto(String profilePhoto) {
         this.profilePhoto = profilePhoto;
+    }
+
+    @Transient
+    public String getPhotosImagePath(){
+        if(profilePhoto==null) return null;
+        return "/photos/recruiter/"+userAccountId+"/"+profilePhoto;
     }
 
     @Override
@@ -111,7 +127,8 @@ public class RecruiterProfile {
                 ", lastName='" + lastName + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", Country='" + Country + '\'' +
+                ", country='" + country + '\'' +
+                ", company='" + company + '\'' +
                 ", profilePhoto='" + profilePhoto + '\'' +
                 '}';
     }
